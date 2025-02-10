@@ -1,0 +1,13 @@
+# Lambda Function Setup
+## Prerequisites
+- IAM role with permissions for EC2 and S3
+- ## Steps
+1. Deploy the Lambda function:
+   ```bash
+   aws lambda create-function --function-name SecurityComplianceChecker \
+       --runtime python3.9 --handler lambda_function.lambda_handler \
+       --role arn:aws:iam::<account-id>:role/<role-name> \
+       --zip-file fileb://lambda_function.zip
+   2.Test the Lambda function
+   aws lambda invoke --function-name SecurityComplianceChecker output.txt
+  3.After test the function Monitor the Lambda function using CloudWatch Logs.
