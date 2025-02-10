@@ -1,33 +1,32 @@
-# aws-controltower-automation
-AWS Landing Zone Setup Using AWS Control Tower, Use Terraform to Automate Landing Zone Setup, Set up Cost Budget and Cost explorer
-# AWS Control Tower Setup
-## Steps
-1. **Create AWS Organization**:
-   - Navigate to AWS Organizations and create a new organization.
-   - Enable all features for full functionality.
+This project automates the setup of a secure, scalable, and cost-optimized AWS environment using Terraform and AWS-native tools.
 
-2. **Set Up AWS Control Tower**:
-   - Choose the home region ( `us-east-1, us-west-1`).
-   - Configure organizational units (OUs) (Log Archive, Audit account).
-   - ('vib.logarchive@gmail.com,vib.logaudit@gmail.com')
+## Features
+- **AWS Control Tower**: Establishes a Landing Zone with best practices.
+- **Terraform Automation**: Automates the provisioning of resources.
+- **Security & Compliance**: Enables AWS Config, GuardDuty, and IAM Access Analyzer.
+- **Cost Optimization**: Sets up AWS Budgets and Cost Explorer.
 
-3. **Enable AWS SSO**:
-   - Configure AWS Single Sign-On (SSO) for centralized access management.
+In this assignment, I successfully built a secure, scalable, and cost-efficient AWS environment using AWS Control Tower. The Landing Zone setup automated account creation, enforced security rules, and centralized monitoring.
 
-4. **Enable AWS CloudTrail**:
-   - Create a trail to log API activity across all regions.
+Key Highlights:
+✅ Security & Compliance
+Enabled AWS CloudTrail for logging and AWS Config for compliance.
+Used AWS GuardDuty for threat detection and IAM Access Analyzer for policy checks.
+Implemented AWS SSO for centralized access control.
+✅ Cost Optimization
+Set up AWS Budgets and Cost Explorer for cost tracking.
+Created CloudWatch Alarms to alert on cost overruns.
+✅ Automation & Scalability
+Used Terraform to automate VPC, subnets, and security groups setup for Control tower.
+Deployed an EC2 instance .
+Implemented a Lambda function for security compliance checks.
 
-5. **Enable AWS Config**:
-   - Set up AWS Config to monitor resource compliance.
 
-6. **Enable AWS GuardDuty**:
-   - Enable GuardDuty for threat detection (30-day free trial)
+Key Takeaways:
+🔹 Security First – Used AWS tools to protect resources.
+🔹 Cost Awareness – Monitored spending to prevent budget overruns.
+🔹 Automation – Reduced manual work with Terraform & Lambda.
+🔹 Scalability – Designed for future growth and workloads.
 
-7. **Deploy Terraform Scripts**:
-   - Use Terraform to automate the setup of VPC, subnets, security groups, and EC2 instances.
+This Assignment demonstrates my ability to design, automate, and manage a secure AWS cloud environment, aligning with Valroize Digital’s commitment to innovation and reliability.
 
-8. **Set Up AWS Budgets**:
-   - Create a budget to monitor costs and set alerts for overruns.
-
-10. **Deploy Lambda Function**:
-    - Deploy a Lambda function to automate security compliance checks.
