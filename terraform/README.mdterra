@@ -1,0 +1,20 @@
+# Terraform Setup
+
+This folder contains the Terraform configuration for automating the setup of an AWS Landing Zone.
+
+## Prerequisites
+- Terraform installed (`>= 1.0`)
+- AWS CLI configured with credentials
+
+## Steps
+1. Initialize Terraform:
+   ```bash
+   terraform init
+2. Valijdate Terraform:
+   terraform validate
+3.Plan the Deployment:
+   terraform plan
+4. Apply the configuration:
+   terraform apply
+5. Destroy the infrastructure:
+   terraform destroy     
