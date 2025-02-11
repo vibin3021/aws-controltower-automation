@@ -1,5 +1,4 @@
 terraform {
-  required_version = ">= 1.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -10,7 +9,6 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
-  profile = "default"
 }
 
 data "aws_caller_identity" "current" {}
@@ -19,20 +17,19 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_subnet" "public_subnet" {
+resource "aws_subnet" "Ass_public_subnet" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
 }
 
-resource "aws_subnet" "private_subnet" {
+resource "aws_subnet" "Ass_private_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1b"
 }
 
-resource "aws_security_group" "allow_basic" {
+resource "aws_security_group" "Ass_sg" {
   vpc_id = aws_vpc.main.id
 
   ingress {
@@ -50,11 +47,9 @@ resource "aws_s3_bucket" "cloudtrail_logs" {
 resource "aws_cloudtrail" "main" {
   name                       = "landing-zone-cloudtrail"
   s3_bucket_name             = aws_s3_bucket.cloudtrail_logs.id
-  include_global_service_events = true
-  is_multi_region_trail      = true
 }
 
-resource "aws_guardduty_detector" "guardduty" {
+resource "aws_guardduty_detector" "Ass_guardduty" {
   enable = true
 }
 
