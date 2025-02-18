@@ -10,3 +10,71 @@
    2. Test the lamba function
    aws lambda invoke --function-name SecurityComplianceChecker output.txt
 ## After test the funtion - go to cloud watch and monitor
+
+
+
+1.import boto3
+#boto3: The AWS SDK for Python, which allows you to interact with AWS services like EC2, S3, etc.
+This line imports the boto3 library so you can use it in the script.
+
+2.Lambda Handler Function
+def lambda_handler(event, context):
+#lambda_handler: The entry point for the Lambda function. AWS Lambda invokes this function when the Lambda is triggered.
+
+event: Contains data passed to the Lambda function (e.g., from an S3 event, API Gateway, etc.).
+context: Provides runtime information about the Lambda function (e.g., function name, memory limit, etc.)
+
+3. Initialize AWS Clients
+    ec2 = boto3.client('ec2')
+    s3 = boto3.client('s3')
+#boto3.client('ec2'): Creates a client for the EC2 service, allowing you to interact with EC2 instances.
+boto3.client('s3'): Creates a client for the S3 service, allowing you to interact with S3 buckets.
+
+4. Check for Unencrypted S3 Buckets
+    buckets = s3.list_buckets()['Buckets']
+    for bucket in buckets:
+        try:
+            encryption = s3.get_bucket_encryption(Bucket=bucket['Name'])
+        except:
+            print(f"Bucket {bucket['Name']} is not encrypted.")
+#s3.list_buckets()['Buckets']: Retrieves a list of all S3 buckets in the AWS account.
+Buckets: A list of dictionaries, where each dictionary contains details about a bucket (e.g., name, creation date).
+for bucket in buckets: Iterates through each bucket in the list.
+s3.get_bucket_encryption(Bucket=bucket['Name']): Attempts to retrieve the encryption configuration for the bucket.
+If the bucket is not encrypted, this call will raise an exception.
+except block: Catches the exception and prints a message indicating that the bucket is not encrypted.
+
+
+
+5. Check for Publicly Accessible EC2 Instances
+    instances = ec2.describe_instances()['Reservations']
+    for reservation in instances:
+        for instance in reservation['Instances']:
+            if instance.get('PublicIpAddress'):
+                print(f"Instance {instance['InstanceId']} is publicly accessible.")
+
+#ec2.describe_instances()['Reservations']: Retrieves a list of all EC2 instances in the AWS account.
+Reservations: A list of dictionaries, where each dictionary contains details about a reservation (e.g., instances, owner).
+for reservation in instances: Iterates through each reservation.
+for instance in reservation['Instances']: Iterates through each instance in the reservation.
+if instance.get('PublicIpAddress'): Checks if the instance has a public IP address.
+If the instance has a public IP, it is considered publicly accessible.
+print(f"Instance {instance['InstanceId']} is publicly accessible."): Prints a message indicating that the instance is publicly accessible.
+
+
+6. Return Response
+    return {
+        'statusCode': 200,
+        'body': 'Security compliance check completed.'
+    }
+#return: Returns a response from the Lambda function.
+statusCode: HTTP status code (200 means success).
+body: A message indicating that the security compliance check is completed.
+
+
+Summary of the Lambda Function
+Lists all S3 buckets and checks if they are encrypted.
+If a bucket is not encrypted, it logs a message.
+Lists all EC2 instances and checks if they have a public IP address.
+If an instance has a public IP, it logs a message.
+Returns a success response with a status code of 200.
